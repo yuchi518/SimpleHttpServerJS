@@ -12,7 +12,7 @@ SimpleHttpServerJS uses a number of open source projects to work properly:
 * [node.js] - Let javascript run on server side.
 * [minimist] - Help to parse program arguments.
 
-### Installation & Run
+### Installation and Run
 
 ```sh
 $ git clone [git-repo-url] SimpleHttpServerJS
@@ -22,11 +22,39 @@ $ node httpserver.js -p 8000 file_path_1 file_path_2 [... more files or folders]
 ```
 
 Then, open browser and type "http://hostname:8000/" to browse files and folders.
+File paths combination describes in following section.
+
+### File paths combination
+
+1. Only one root, just like a normal web server, server lists
+all files in the folder.
+```sh
+$ node httpserver.js -p 8000 /root/folder/*
+```
+
+2. Multiple roots, server lists all files in all folders,
+just like all files are in the same folder.
+```sh
+$ node httpserver.js -p 8000 /root/folder1/* /root/folder2/*
+```
+
+3. Multiple folders, server lists all folder names.
+In following example, the name folder1, folder2 will be listed.
+```sh
+$ node httpserver.js -p 8000 /root/folder1 /root/folder2
+```
+
+4. More and more
+```sh
+$ node httpserver.js -p 8000 /root/folder1/*/*.html /root/folder2/*.jpg \
+ /root/folder3/index.html
+```
 
 
 ### Todo's
 
-* UTF8
+* UTF-8
+* Correct content type
 
 License
 ---
