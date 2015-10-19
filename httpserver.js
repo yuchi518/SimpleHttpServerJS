@@ -6,7 +6,8 @@
 var http = require("http");
 var path = require("path");
 var fs = require("fs");
-var argv = require("minimist")(process.argv.slice(2));
+var child_process = require('child_process');
+var argv = require("minimist")(process.argv.slice(2), {"boolean":["h", "m", "d"]});
 
 function isnumber(o) {
     return typeof o == "number";
@@ -25,6 +26,19 @@ function isAccess(path, access) {
         console.warn(path + " --- can't access.");
         return false;
     }
+}
+
+if (argv.h) {
+    console.log("" +
+            "Usage: node httpserver.js [options] [file_paths]\n" +
+            "       node httpserver.js -p 8000 ~/*\n" +
+            "Options:\n" +
+            "   -h         Help\n" +
+            "   -s port    Default port number is 8000\n" +
+            "   -m         Enable md5sum, show in web page\n" +
+            "   -d         Last modified date\n"
+    );
+    process.exit();
 }
 
 var files = argv._.map(function (val) {
@@ -61,7 +75,16 @@ http.createServer(function (request, response) {
 
         body = "<html><body>";
         for(var k in mapfiles) {
-           body += "<a href='/" + k + "'>" + k + "</a><p>";
+            var sta = fs.statSync(mapfiles[k]);
+            var md5sum = "";
+            var file_date = "";
+            if (argv.m && !sta.isDirectory()) {
+                md5sum = "&nbsp(" + child_process.execSync("md5sum " + mapfiles[k]).toString().split(" ")[0] + ")";
+            }
+            if (argv.d) {
+                file_date = "&nbsp" + sta.mtime;
+            }
+            body += "<a href='/" + k + "'>" + k + "</a>" + file_date + md5sum + "<p>";
         }
         body += "</body></html>";
         contentType = "text/html";
@@ -89,7 +112,18 @@ http.createServer(function (request, response) {
 
                     body = "<html><body>";
                     morefiles.forEach(function (v) {
-                        body += "<a href='/" + dirs.concat(v).join("/") + "'>" + v + "</a><p>";
+                        var access_file = path.join(access_path, v);
+                        if (!isAccess(access_file, fs.R_OK)) return;
+                        var md5sum = "";
+                        var file_date = "";
+                        var sta = fs.statSync(access_file);
+                        if (argv.m && !sta.isDirectory()) {
+                            md5sum = "&nbsp(" + child_process.execSync("md5sum " + access_file).toString().split(" ")[0] + ")";
+                        }
+                        if (argv.d) {
+                            file_date = "&nbsp" + sta.mtime;
+                        }
+                        body += "<a href='/" + dirs.concat(v).join("/") + "'>" + v + "</a>" + file_date + md5sum + "<p>";
                     });
                     body += "</body></html>";
                     contentType = "text/html";

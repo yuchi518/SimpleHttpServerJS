@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CppTools.Loader" reportImplicitCastToBool="false" reportNameReferencedOnce="false" version="3" compilerSelect="AUTO" />
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$PROJECT_DIR$/../../apache-maven-3.2.3" />
+        <option name="mavenHome" value="$USER_HOME$/apache-maven-3.2.3" />
         <option name="pluginUpdatePolicy" value="UPDATE" />
       </MavenGeneralSettings>
     </option>

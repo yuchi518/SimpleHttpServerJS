@@ -50,11 +50,23 @@ $ node httpserver.js -p 8000 /root/folder1/*/*.html /root/folder2/*.jpg \
  /root/folder3/index.html
 ```
 
+### Usage
+```sh
+$ node httpserver.js -h
+Usage: node httpserver.js [options] [file_paths]
+       node httpserver.js -p 8000 ~/*
+Options:
+   -h            Help
+   -s port    Default port number is 8000
+   -m           Enable md5sum, show in web page
+   -d            Last modified date
+```
 
 ### Todo's
 
 * UTF-8
 * Correct content type
+* File list appearance
 
 License
 ---
