@@ -138,6 +138,8 @@ http.createServer(function (request, response) {
                     var readStream = fs.createReadStream(access_path);
                     readStream.pipe(response);
 
+                    console.log("Download file: " + access_path);
+
                     return;
                 }
             } else {
