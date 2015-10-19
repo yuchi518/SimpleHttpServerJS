@@ -138,7 +138,8 @@ http.createServer(function (request, response) {
                     var readStream = fs.createReadStream(access_path);
                     readStream.pipe(response);
 
-                    console.log("Download file: " + access_path);
+                    var date = new Date();
+                    console.log("[%d:%d:%d] Download file: %s", date.getHours(), date.getMinutes(), date.getSeconds(), access_path);
 
                     return;
                 }
