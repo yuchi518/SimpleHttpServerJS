@@ -28,6 +28,10 @@ function isAccess(path, access) {
     }
 }
 
+function fixedEncodeURI(str) {
+    return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
+}
+
 if (argv.h) {
     console.log("" +
             "Usage: node httpserver.js [options] [file_paths]\n" +
@@ -60,7 +64,7 @@ port = isnumber(argv.p)?argv.p:8000;
 
 http.createServer(function (request, response) {
     var params = require("url").parse(request.url);
-    var pathname = params.pathname;
+    var pathname = decodeURI(params.pathname);
     var isfolder;
     var filenotfound = false;
     var body;
@@ -79,12 +83,12 @@ http.createServer(function (request, response) {
             var md5sum = "";
             var file_date = "";
             if (argv.m && !sta.isDirectory()) {
-                md5sum = "&nbsp(" + child_process.execSync("md5sum " + mapfiles[k]).toString().split(" ")[0] + ")";
+                md5sum = "&nbsp(" + child_process.execSync("md5sum \"" + mapfiles[k] + "\"").toString().split(" ")[0] + ")";
             }
             if (argv.d) {
                 file_date = "&nbsp" + sta.mtime;
             }
-            body += "<a href='/" + k + "'>" + k + "</a>" + file_date + md5sum + "<p>";
+            body += "<a href='/" + fixedEncodeURI(k) + "'>" + k + "</a>" + file_date + md5sum + "<p>";
         }
         body += "</body></html>";
         contentType = "text/html";
@@ -118,12 +122,12 @@ http.createServer(function (request, response) {
                         var file_date = "";
                         var sta = fs.statSync(access_file);
                         if (argv.m && !sta.isDirectory()) {
-                            md5sum = "&nbsp(" + child_process.execSync("md5sum " + access_file).toString().split(" ")[0] + ")";
+                            md5sum = "&nbsp(" + child_process.execSync("md5sum \"" + access_file + "\"").toString().split(" ")[0] + ")";
                         }
                         if (argv.d) {
                             file_date = "&nbsp" + sta.mtime;
                         }
-                        body += "<a href='/" + dirs.concat(v).join("/") + "'>" + v + "</a>" + file_date + md5sum + "<p>";
+                        body += "<a href='/" + fixedEncodeURI(dirs.concat(v).join("/")) + "'>" + v + "</a>" + file_date + md5sum + "<p>";
                     });
                     body += "</body></html>";
                     contentType = "text/html";
