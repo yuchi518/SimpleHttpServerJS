@@ -56,10 +56,10 @@ $ node httpserver.js -h
 Usage: node httpserver.js [options] [file_paths]
        node httpserver.js -p 8000 ~/*
 Options:
-   -h            Help
+   -h         Help
    -s port    Default port number is 8000
-   -m           Enable md5sum, show in web page
-   -d            Last modified date
+   -m         Enable md5sum, show in web page
+   -d         Last modified date, show in web page
 ```
 
 ### Todo's
