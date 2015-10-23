@@ -9,7 +9,7 @@ SimpleHttpServerJS is a simple http server, sometimes you need a simple http ser
 
 SimpleHttpServerJS uses a number of open source projects to work properly:
 
-* [node.js] - Let javascript run on server side.
+* [node.js] - Let javascript run on server side. (v0.12 and v4.21 later)
 * [minimist] - Help to parse program arguments.
 
 ### Installation and Run
