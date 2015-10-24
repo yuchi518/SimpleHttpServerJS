@@ -1,8 +1,8 @@
+#! /usr/bin/env node
 /**
  * Created by Yuchi on 2015/10/17.
  */
 
-//require('shelljs/global');
 var http = require("http");
 var path = require("path");
 var fs = require("fs");
@@ -32,7 +32,7 @@ function fixedEncodeURI(str) {
     return encodeURI(str).replace(/%5B/g, '[').replace(/%5D/g, ']');
 }
 
-if (argv.h) {
+if (argv.h || argv._.length==0) {
     console.log("" +
             "Usage: node httpserver.js [options] [file_paths]\n" +
             "       node httpserver.js -p 8000 ~/*\n" +
@@ -40,7 +40,9 @@ if (argv.h) {
             "   -h         Help\n" +
             "   -s port    Default port number is 8000\n" +
             "   -m         Enable md5sum, show in web page\n" +
-            "   -d         Last modified date\n"
+            "   -d         Last modified date\n" +
+            "File paths:\n" +
+            "   At least one\n"
     );
     process.exit();
 }

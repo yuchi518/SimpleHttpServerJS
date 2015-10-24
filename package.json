@@ -1,0 +1,35 @@
+{
+  "name": "mdhs",
+  "version": "0.1.2",
+  "description": "MDHS is a simple and multiple directors http server.",
+  "bin": {
+    "mdhs": "httpserver.js"
+  },
+  "main": "httpserver.js",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuchi518/SimpleHttpServerJS.git"
+  },
+  "keywords": [
+    "http",
+    "server",
+    "multi",
+    "multiple",
+    "directors",
+    "folders",
+    "simple"
+  ],
+  "author": "Yuchi Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuchi518/SimpleHttpServerJS/issues"
+  },
+  "homepage": "https://github.com/yuchi518/SimpleHttpServerJS"
+}
