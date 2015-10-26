@@ -5,9 +5,11 @@
 
 var http = require("http");
 var path = require("path");
+var mime = require('mime-types')
 var fs = require("fs");
 var child_process = require('child_process');
-var argv = require("minimist")(process.argv.slice(2), {"boolean":["h", "m", "d"]});
+var argv = require("minimist")(process.argv.slice(2),
+    {"boolean":["h", "m", "d"], "string":["i"], alias:{"help":"h", "md5":"m", "date":"d", "index":"i", "port":"p"}});
 
 function isnumber(o) {
     return typeof o == "number";
@@ -37,14 +39,24 @@ if (argv.h || argv._.length==0) {
             "Usage: node httpserver.js [options] [file_paths]\n" +
             "       node httpserver.js -p 8000 ~/*\n" +
             "Options:\n" +
-            "   -h         Help\n" +
-            "   -s port    Default port number is 8000\n" +
-            "   -m         Enable md5sum, show in web page\n" +
-            "   -d         Last modified date\n" +
+            "   -h, --help                 Help\n" +
+            "   -p, --port port            Default port number is 8000\n" +
+            "   \n" +
+            "   -m, --md5                  Enable md5sum, show in web page\n" +
+            "   -d, --date                 Last modified date\n" +
+            "   -i, --index index.html     Default folder's index file name\n" +
             "File paths:\n" +
             "   At least one\n"
     );
     process.exit();
+}
+
+var indexs_filename = [];
+if (argv.i) {
+    argv.i.split(",").forEach(function (val) {
+        var v = val.trim();
+        if (v.length>0) indexs_filename.push(v);
+    });
 }
 
 var files = argv._.map(function (val) {
@@ -67,7 +79,6 @@ port = isnumber(argv.p)?argv.p:8000;
 http.createServer(function (request, response) {
     var params = require("url").parse(request.url);
     var pathname = decodeURI(params.pathname);
-    var isfolder;
     var filenotfound = false;
     var body;
     var contentType = "text/plain";
@@ -77,7 +88,19 @@ http.createServer(function (request, response) {
 
     if (dirs.length == 0) {
         // root folder
-        isfolder = true;
+
+        if (indexs_filename.len > 0) {
+            for (var idx_f in indexs_filename) {
+                if (idx_f in mapfiles) {
+                    var access_path = mapfiles[idx_f];
+                    if (isAccess(access_path, fs.R_OK)) {
+
+
+                        return;
+                    }
+                }
+            }
+        }
 
         body = "<html><body>";
         for(var k in mapfiles) {
@@ -136,8 +159,9 @@ http.createServer(function (request, response) {
 
                 } else {
                     // single file
+                    contentType = mime.lookup(access_path) || "application/octet-stream";
                     response.writeHead(200, {
-                        'Content-Type': "application/octet-stream",
+                        'Content-Type': contentType,
                         'Content-Length': sta.size
                     });
 

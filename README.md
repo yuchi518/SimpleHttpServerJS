@@ -11,6 +11,7 @@ SimpleHttpServerJS uses a number of open source projects to work properly:
 
 * [node.js] - Let javascript run on server side. (v0.12 and v4.21 later)
 * [minimist] - Help to parse program arguments.
+* [mime-types] - Help to set correct mime types.
 
 ### Installation and Run
 
@@ -56,10 +57,12 @@ $ mdhs -h
 Usage: node httpserver.js [options] [file_paths]
        node httpserver.js -p 8000 ~/*
 Options:
-   -h         Help
-   -s port    Default port number is 8000
-   -m         Enable md5sum, show in web page
-   -d         Last modified date
+   -h, --help                 Help
+   -p, --port port            Default port number is 8000
+
+   -m, --md5                  Enable md5sum, show in web page
+   -d, --date                 Last modified date
+   -i, --index index.html     Default folder's index file name
 File paths:
    At least one
 ```
