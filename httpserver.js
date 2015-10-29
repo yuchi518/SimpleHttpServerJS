@@ -36,8 +36,8 @@ function fixedEncodeURI(str) {
 
 if (argv.h || argv._.length==0) {
     console.log("" +
-            "Usage: node httpserver.js [options] [file_paths]\n" +
-            "       node httpserver.js -p 8000 ~/*\n" +
+            "Usage: mdhs [options] [file_paths]\n" +
+            "       mdhs -p 8000 ~/*\n" +
             "Options:\n" +
             "   -h, --help                 Help\n" +
             "   -p, --port port            Default port number is 8000\n" +
