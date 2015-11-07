@@ -3,7 +3,7 @@
 SimpleHttpServerJS is a simple and multiple directors http server, sometimes you need a simple http server to export some files in different folders, you can use this to do that.
 
 ### Version
-0.1.2
+0.1.3
 
 ### Tech
 
@@ -17,7 +17,7 @@ SimpleHttpServerJS uses a number of open source projects to work properly:
 
 ```sh
 $ npm install -g mdhs
-$ ndhs -p 8000 file_path_1 file_path_2 [... more files or folders]
+$ mdhs -p 8000 file_path_1 file_path_2 [... more files or folders]
 Server running at http://127.0.0.1:8000/
 ^C (exit)
 ```
@@ -30,32 +30,37 @@ File paths combination describes in following section.
 1. Only one root, just like a normal web server, server lists
 all files in the folder.
 ```sh
-$ ndhs -p 8000 /root/folder/*
+$ mdhs -p 8000 /root/folder/*
 ```
 
 2. Multiple roots, server lists all files in all folders,
 just like all files are in the same folder.
 ```sh
-$ ndhs -p 8000 /root/folder1/* /root/folder2/*
+$ mdhs -p 8000 /root/folder1/* /root/folder2/*
 ```
 
 3. Multiple folders, server lists all folder names.
 In following example, the name folder1, folder2 will be listed.
 ```sh
-$ ndhs -p 8000 /root/folder1 /root/folder2
+$ mdhs -p 8000 /root/folder1 /root/folder2
 ```
 
 4. More and more
 ```sh
-$ ndhs -p 8000 /root/folder1/*/*.html /root/folder2/*.jpg \
+$ mdhs -p 8000 /root/folder1/*/*.html /root/folder2/*.jpg \
  /root/folder3/index.html
+```
+
+5. Show web page
+```sh
+$ mdhs -p 8000 -i "index.html,index.htm" /www/*
 ```
 
 ### Usage
 ```sh
 $ mdhs -h
-Usage: node httpserver.js [options] [file_paths]
-       node httpserver.js -p 8000 ~/*
+Usage: mdhs [options] [file_paths]
+       mdhs -p 8000 ~/*
 Options:
    -h, --help                 Help
    -p, --port port            Default port number is 8000
@@ -70,14 +75,13 @@ File paths:
 ### Todo's
 
 * UTF-8
-* Correct content type
 * File list appearance
 * Roots synchronization
 
 License (ISC)
 ---
 
-Copyright (c) 2015 year, Yuchi <yuchi518@gmail.com>
+Copyright (c) 2015, Yuchi <yuchi518@gmail.com>
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
