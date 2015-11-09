@@ -3,7 +3,7 @@
 SimpleHttpServerJS is a simple and multiple directors http server, sometimes you need a simple http server to export some files in different folders, you can use this to do that.
 
 ### Version
-0.1.3
+0.1.5
 
 ### Tech
 

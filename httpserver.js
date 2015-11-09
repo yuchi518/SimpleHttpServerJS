@@ -3,15 +3,15 @@
  * Created by Yuchi on 2015/10/17.
  */
 
+var fs = require("fs");
+//var process = require("process");
+var child_process = require('child_process');
 var http = require("http");
 var path = require("path");
-var mime = require('mime-types')
-var fs = require("fs");
-var process = require("process")
-var child_process = require('child_process');
+var mime = require("mime-types");
+var FilesMgn = require("./filesmgn.js");
 var argv = require("minimist")(process.argv.slice(2),
     {"boolean":["h", "m", "d"], "string":["i"], alias:{"help":"h", "md5":"m", "date":"d", "index":"i", "port":"p"}});
-var FilesMgn = require("./filesmgn.js");
 
 
 function isnumber(o) {
